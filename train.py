@@ -223,8 +223,8 @@ def train():
         for batch_idx, batch in enumerate(dataloader):
             optimizer.zero_grad()
 
-            input_ids = batch['input_ids'].to(device)#.cuda(non_blocking=True)
-            attention_mask = batch['attention_mask'].to(device)#.cuda(non_blocking=True)
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch['attention_mask'].to(device)
 
             labels = input_ids[:, 1:].contiguous()
             input_ids = input_ids[:, :-1].contiguous()
