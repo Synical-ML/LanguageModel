@@ -187,9 +187,7 @@ def train():
     dataloader = DataLoader(
         dataset,
         batch_size=None,
-        #batch_size=train_config['batch_size'] // world_size,
         num_workers=4,
-        #pin_memory=True
     )
 
     criterion = nn.CrossEntropyLoss(ignore_index=tokenizer.pad_token_id)
