@@ -1,0 +1,8 @@
+{
+    "d_model": 768,
+    "num_heads": 12,
+    "num_layers": 12,
+    "max_length": 512,
+    "rate": 0.1,
+    "tokenizer":"meta-llama/Llama-3.2-3B-Instruct"
+}
