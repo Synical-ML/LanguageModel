@@ -1,0 +1,12 @@
+{
+    "epochs": 1,
+    "batch_size": 128,
+    "learning_rate": 0.0002,
+    "weight_decay": 0.01,
+    "gradient_accumulation_steps": null,
+    "save_path": "LM.pt",
+    "save_interval": 5000,
+    "use_wandb": true,
+    "main_process_ip": "localhost",
+    "main_process_port": 29500
+}
