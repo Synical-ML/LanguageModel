@@ -272,6 +272,7 @@ def train():
                     "epoch_loss": avg_epoch_loss,
                     "epoch": epoch
                 })
+                
             elif TQDM_AVAILABLE:
                 progress_bar.close()
 
