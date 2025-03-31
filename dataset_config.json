@@ -1,0 +1,8 @@
+{
+    "dataset_name": "HuggingFaceFW/fineweb",
+    "dataset_split": "train",
+    "dataset_subset": "default",
+    "dataset_type": "raw",
+    "dataset_key": "text",
+    "stream_dataset": true
+}
