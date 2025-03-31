@@ -87,7 +87,6 @@ class DistributedIterableDataset(IterableDataset):
         for item in self.dataset:
             text = item[self.dataset_key]
 
-            # Tokenize individual text
             encodings = self.tokenizer(
                 text,
                 truncation=True,
@@ -105,18 +104,14 @@ class DistributedIterableDataset(IterableDataset):
             batch_input_ids.append(input_ids)
             batch_attention_masks.append(attention_mask)
 
-            # When batch is full, yield and reset
             if len(batch_input_ids) == self.batch_size:
-                # Manually pad the batch
                 batch_tensor = self.pad_batch(batch_input_ids, batch_attention_masks)
 
                 yield batch_tensor
 
-                # Reset batches
                 batch_input_ids = []
                 batch_attention_masks = []
 
-        # Yield any remaining partial batch
         if batch_input_ids:
             batch_tensor = self.pad_batch(batch_input_ids, batch_attention_masks)
             yield batch_tensor
@@ -175,7 +170,6 @@ def train():
     )
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    #device = "cpu"
 
     model = GPTModel(config).to(device)
     model = DistributedDataParallel(model, device_ids=[local_rank])
@@ -207,7 +201,7 @@ def train():
 
     if use_wandb:
         wandb.init(
-            project=f"LM",
+            project=f"LLM",
             config={
                 **model_config,
                 **dataset_config,
@@ -260,13 +254,11 @@ def train():
                     wandb.log({
                         "batch_loss": reduced_loss.item(),
                         "epoch": epoch,
-                        "learning_rate": optimizer.param_groups[0]['lr']
                     })
                 elif TQDM_AVAILABLE:
                     progress_bar.update(1)
                     progress_bar.set_postfix({"loss": reduced_loss.item()})
                 else:
-                    # Fallback basic print logging
                     print(f"Epoch {epoch + 1}, Batch {batch_idx}, Loss: {reduced_loss.item()}")
 
                 if batch_idx % train_config.get('save_interval', 1000) == 0:
